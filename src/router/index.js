@@ -4,6 +4,7 @@ import Login from '@/views/login'
 import Home from '@/views/home'
 import Welcome from '@/views/welcome'
 import NotFound from '@/views/notfound'
+import Article from '@/views/article'
 
 import store from '@/store'
 
@@ -26,6 +27,11 @@ const router = new VueRouter({
           path: '/welcome',
           name: 'welcome',
           component: Welcome
+        },
+        {
+          path: '/article',
+          name: 'article',
+          component: Article
         }
       ]
     },
