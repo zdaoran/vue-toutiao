@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '@/views/login'
 import Home from '@/views/home'
 import Welcome from '@/views/welcome'
+import NotFound from '@/views/notfound'
 
 import store from '@/store'
 
@@ -27,6 +28,11 @@ const router = new VueRouter({
           component: Welcome
         }
       ]
+    },
+    {
+      path: '*',
+      name: '404',
+      component: NotFound
     }
   ]
 })
