@@ -65,9 +65,9 @@ export default {
             } = await this.$http.post('authorizations', this.loginData)
             store.setUser(data)
             this.$router.push('/')
-          } catch (e) {}
-        } else {
-          this.$message.error('手机号或验证码错误')
+          } catch (e) {
+            this.$message.error('手机号或验证码错误')
+          }
         }
       })
     }
