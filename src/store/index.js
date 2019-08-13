@@ -5,7 +5,8 @@ export default {
     return JSON.parse(window.sessionStorage.getItem(KEY) || '{}')
   },
   setUser (userInfo) {
-    window.sessionStorage.setItem(KEY, JSON.stringify(userInfo))
+    const user = this.getUser()
+    window.sessionStorage.setItem(KEY, JSON.stringify({ ...user, ...userInfo }))
   },
   removeUser () {
     window.sessionStorage.removeItem(KEY)

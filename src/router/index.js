@@ -8,6 +8,7 @@ import Article from '@/views/article'
 import Image from '@/views/image'
 import Publish from '@/views/publish'
 import Comment from '@/views/comment'
+import Setting from '@/views/setting'
 
 import store from '@/store'
 
@@ -50,6 +51,11 @@ const router = new VueRouter({
           path: '/comment',
           name: 'comment',
           component: Comment
+        },
+        {
+          path: '/setting',
+          name: 'setting',
+          component: Setting
         }
       ]
     },
