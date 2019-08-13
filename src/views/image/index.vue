@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card class="img-container">
     <div slot="header">
       <my-bread>素材管理</my-bread>
     </div>
@@ -8,7 +8,7 @@
         <el-radio-button :label="false">全部</el-radio-button>
         <el-radio-button :label="true">收藏</el-radio-button>
       </el-radio-group>
-      <el-button type="success" size="small" style="float:right">添加素材</el-button>
+      <el-button type="success" size="small" style="float:right" @click="addImage">添加素材</el-button>
     </div>
     <ul class="image">
       <li v-for="item in images" :key="item.id">
@@ -32,10 +32,28 @@
       :page-size="reqParams.per_page"
       @current-change="chngePager"
     ></el-pagination>
+    <el-dialog title="添加素材" :visible.sync="dialogVisible" width="300px" style="text-align:center;">
+      <el-upload
+        class="avatar-uploader"
+        action="http://ttapi.research.itcast.cn/mp/v1_0/user/images"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        name="image"
+        :headers="reqHeaders"
+      >
+        <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      </el-upload>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false" type="primary">取 消</el-button>
+      </span>
+    </el-dialog>
   </el-card>
 </template>
 
 <script>
+import store from '@/store'
+import { setTimeout } from 'timers'
 export default {
   data () {
     return {
@@ -45,7 +63,12 @@ export default {
         per_page: 10
       },
       images: [],
-      total: 0
+      total: 0,
+      dialogVisible: false,
+      imageUrl: null,
+      reqHeaders: {
+        Authorization: `Bearer ${store.getUser().token}`
+      }
     }
   },
   methods: {
@@ -87,8 +110,20 @@ export default {
           })
           this.getImages()
         })
-        .catch(() => {
-        })
+        .catch(() => {})
+    },
+    addImage () {
+      this.imageUrl = null
+      this.dialogVisible = true
+    },
+    handleAvatarSuccess (result) {
+      this.imageUrl = result.data.url
+      this.reqParams.page = 1
+      setTimeout(() => {
+        this.dialogVisible = false
+        this.getImages()
+        this.$message.success('上传素材成功')
+      }, 2000)
     }
   },
   created () {
