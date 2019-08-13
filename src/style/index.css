@@ -26,7 +26,6 @@ li {
 .avatar {
   width: 178px;
   height: 178px;
-  display: block;
 }
 .quill-editor .ql-toolbar.ql-snow {
   padding: 0 8px;
