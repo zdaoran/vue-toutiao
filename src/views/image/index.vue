@@ -13,7 +13,7 @@
     <ul class="image">
       <li v-for="item in images" :key="item.id">
         <img :src="item.url" alt object-fit="contain" />
-        <div>
+        <div v-if="!reqParams.collect">
           <span
             class="el-icon-star-off"
             @click="collect(item)"
